@@ -22,5 +22,19 @@ public class AppMenu {
 		System.out.print("Enter your option: ");
 	}
 	
+	/**
+	 * This class will be use to show the sub menu to the user
+	 * Prompts the user for inputs and validate them
+	 */
+	public char showSubMenu () {
+		System.out.println("Select one option:\n");
+		System.out.println("\t(T) Top Player");
+		System.out.println("\t(S) Search by Name");
+		System.out.println("\t(B) Back to Main Menu\n");
+		System.out.print("Enter a character here: ");
+		char option = input.nextLine().toLowerCase().charAt(0);
+		return option;
+	}
+	
 	
 }
