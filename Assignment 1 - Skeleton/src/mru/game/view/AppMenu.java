@@ -2,6 +2,8 @@ package mru.game.view;
 
 import java.util.Scanner;
 
+import mru.game.model.Player;
+
 public class AppMenu {
 	
 	Scanner input;
@@ -14,12 +16,14 @@ public class AppMenu {
 	 * This class will be used to show the menus and sub menus to the user
 	 * It also prompts the user for the inputs and validates them 
 	 */
-	public void showMainMenu() {
+	public int showMainMenu() {
 		System.out.println("Choose one of the option:\n");
 		System.out.println("\t1. Play Game");
 		System.out.println("\t2. Search");
 		System.out.println("\t3. Save and Exit\n");
 		System.out.print("Enter your option: ");
+		int option = input.nextInt();
+		return option;
 	}
 	
 	/**
@@ -36,5 +40,14 @@ public class AppMenu {
 		return option;
 	}
 	
+	public String promptName() {
+		System.out.print("Enter a name: ");
+		String name = input.nextLine().trim();
+		return name;
+	}
+	
+	public void showPlayer(Player ply) {
+		System.out.println(ply);
+	}
 	
 }
