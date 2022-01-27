@@ -50,4 +50,10 @@ public class AppMenu {
 		System.out.println(ply);
 	}
 	
+	public String promptId() {
+		System.out.println("Enter Player Name: ");
+		String name = input.nextLine().trim();
+		return name;
+	}
+	
 }

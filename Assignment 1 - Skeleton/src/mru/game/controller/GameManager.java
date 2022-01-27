@@ -22,6 +22,8 @@ public class GameManager {
 	private final String FILE_PATH = "res/CasinoInfo.txt";
 	ArrayList<Player> players;
 	AppMenu appMen;
+	
+	Guess gs;
 
 	/**
 	 * 
@@ -31,17 +33,17 @@ public class GameManager {
 		players = new ArrayList<>();
 		appMen = new AppMenu();
 		loadData();
-		lanuchApplication();
+		launchApplication();
 	}
 	
 	/**
 	 * 
 	 */
-	private void lanuchApplication() throws IOException{
+	private void launchApplication() throws IOException{
+		
 		boolean flag = true;
 		int option;
-		
-		while(flag) {
+		while (flag) {
 			option = appMen.showMainMenu();
 			
 			switch (option) {
@@ -55,12 +57,30 @@ public class GameManager {
 				save();
 				flag = false;
 			}
-			
 		}
-		
 	}
 	
 	private void playGame() {
+		String name = appMen.promptName();
+		Player p = searchByName(name); // check if the name exist
+		
+		//if p equals to null that means the player is new player
+		if (p == null) {
+			String id = appMen.promptId();
+			players.add(new Player (name, id, 0));
+			
+		}
+		
+		gs = new Guess();
+		boolean win = gs.launchGame();
+		if (win) {
+			for (Player pl : players) {
+				if (pl.getName().equals(name)) {
+					int num = pl.getWins();
+					pl.setWins(num + 1);
+				}
+			}
+		}
 		
 	}
 
@@ -73,7 +93,8 @@ public class GameManager {
 			findTopPlayer();
 			break;
 		case 's':
-			Player ply = searchByName();
+			String name = appMen.promptName(); // catches the name
+			Player ply = searchByName(name);
 			appMen.showPlayer(ply);
 			break;
 		case 'b':
@@ -82,15 +103,14 @@ public class GameManager {
 		
 	}
 
-	private Player searchByName() {
-		String name = appMen.promptName();
-		Player ply = null;
+	private Player searchByName(String name) {
+        Player ply = null; // if it return null their is no player with that name
 		
-		
-		for(Player p: players) {
-			if(p.getName().equals(name)) {
+		//array list called players
+		for (Player p : players) {
+			if (p.getName().equals(name)) {
 				ply = p;
-				break;
+				break; // not important if you find the name break out
 			}
 		}
 		return ply;
