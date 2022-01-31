@@ -55,5 +55,30 @@ public class AppMenu {
 		String name = input.nextLine().trim();
 		return name;
 	}
+
+	public int ShowAppMenu() {
+		int guess;
+		
+		System.out.println("Please enter a number between 1 and 10: ");
+		guess = input.nextInt();
+		
+		return guess;
+	}
+
+	public void showGreaterMsg() {
+		System.out.println("My number is greater than yours!");
+	}
+
+	public void showLesserMsg() {
+		System.out.println("My number is less than yours!");
+	}
+
+	public void showCong() {
+		System.out.println("You Win");
+	}
+
+	public void showSorryMsg(int number) {
+		System.out.println("You Lose! the number is " + number);
+	}
 	
 }
