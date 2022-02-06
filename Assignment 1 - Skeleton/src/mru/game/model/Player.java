@@ -42,12 +42,16 @@ public class Player {
 		return numOfWins;
 	}
 	
+	/*
+	 * toString method prints out the information 
+	 * in the setter and getters
+	 */
 	public String toString() {
 		return "Name: " + name + " ID: " + id + " Number of Wins: " + numOfWins;
 	}
 	
 	// create the format Name; ID; wins
 	public String format() {
-		return name + ";" + id + ";" + numOfWins;
+		return name + "," + id + "," + numOfWins;
 	}
 }

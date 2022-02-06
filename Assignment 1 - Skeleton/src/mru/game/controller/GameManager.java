@@ -13,12 +13,13 @@ public class GameManager {
 	
 	/* In this class toy'll need these methods:
 	 * A constructor
-	 * A method to load the txt file into an arraylist (if it exists, so you check if the txt file exists first)
-	 * A save method to store the arraylist into the the txt file 
+	 * A method to load the text file into an array list (if it exists, so you check if the txt file exists first)
+	 * A save method to store the array list into the the text file 
 	 * A method to search for a player based their name
 	 * A method to find the top players
 	 * Depending on your designing technique you may need and you can add more methods here 
 	 */
+	
 	private final String FILE_PATH = "res/CasinoInfo.txt";
 	ArrayList<Player> players;
 	AppMenu appMen;
@@ -37,23 +38,29 @@ public class GameManager {
 	}
 	
 	/**
-	 * 
+	 * Responsible for running the whole Game
+	 * Loops until the user hits save and exit
 	 */
 	private void launchApplication() throws IOException{
 		
 		boolean flag = true;
 		int option;
 		while (flag) {
+			//read the appMenu method
 			option = appMen.showMainMenu();
 			
 			switch (option) {
+			
 			case 1:
+				//Calls playGame Method
 				playGame();
 				break;
 			case 2:
+				//Calls search Method
 				search();
 				break;
 			case 3:
+				//Call save Method
 				save();
 				flag = false;
 			}
@@ -87,6 +94,7 @@ public class GameManager {
 	private void search() {
 		char option; 
 		
+		//calls the showSubMenu method
 		option =appMen.showSubMenu();
 		switch (option) {
 		case 't':
@@ -94,7 +102,7 @@ public class GameManager {
 			break;
 		case 's':
 			String name = appMen.promptName(); // catches the name
-			Player ply = searchByName(name);
+			Player ply = searchByName(name); //calls searchByName method
 			appMen.showPlayer(ply);
 			break;
 		case 'b':
@@ -102,7 +110,13 @@ public class GameManager {
 		}
 		
 	}
-
+	
+	/*
+	 * if the player exist it will work
+	 * if he/she doesn't exist it will return null
+	 * null means that player doesn't exist
+	 * @param name
+	 */
 	private Player searchByName(String name) {
         Player ply = null; // if it return null their is no player with that name
 		
@@ -128,6 +142,8 @@ public class GameManager {
 		System.out.println("Saving your game");
 		
 		for(Player p: players) {
+			//.format calls format method
+			//format the object then prints it to the file
 			pw.println(p.format());
 		}
 		
@@ -136,7 +152,7 @@ public class GameManager {
 	}
 
 	/**
-	 * 
+	 * Responsible for checking if the file exist or not
 	 * @throws Exception
 	 */
 	private void loadData() throws Exception {
@@ -144,12 +160,26 @@ public class GameManager {
 		String currentLine;
 		String[] splittedLine;
 		
+		//db.exists check whether the file exist or not
 		if(db.exists()) {
+			//Scan the file and throws the memory in fileReader
 			Scanner fileReader = new Scanner(db);
 			
+			//Read all of the line in the database
+			//Reads the line and put it in a array list
 			while(fileReader.hasNextLine()) {
 				currentLine = fileReader.nextLine();
-				splittedLine = currentLine.split(";");
+				
+				//.split(",") splits the array in the res folder
+				//by reading the comma
+				splittedLine = currentLine.split(",");
+				
+				//Player comes from Player class
+				//The constructor of the Player Class takes in the name, id, and number of wins
+				//splittedLine[0] = name, 
+				//splittedLine[1] = ID, 
+				//Integer.parseInt(splittedLine[2] = number of wins
+				//integer parseInt converts  String splittedLine[2] into an integer
 				Player p = new Player(splittedLine[0], splittedLine[1], Integer.parseInt(splittedLine[2]));
 				players.add(p);
 			}
