@@ -47,7 +47,7 @@ public class Player {
 	 * in the setter and getters
 	 */
 	public String toString() {
-		return "Name: " + name + " Balance: " + balance + " Number of Wins: " + numOfWins;
+		return "Name: " + name + "," + " Balance: $" + balance + "," +" Number of Wins: " + numOfWins;
 	}
 	
 	// create the format Name; ID; wins
