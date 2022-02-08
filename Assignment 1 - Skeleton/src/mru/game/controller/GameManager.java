@@ -11,22 +11,27 @@ import mru.game.view.AppMenu;
 
 public class GameManager {
 	
-	/* In this class toy'll need these methods:
-	 * A constructor
-	 * A method to load the text file into an array list (if it exists, so you check if the txt file exists first)
-	 * A save method to store the array list into the the text file 
-	 * A method to search for a player based their name
-	 * A method to find the top players
-	 * Depending on your designing technique you may need and you can add more methods here 
+	/**
+	 * The GameManager class is what runs the program. 
+	 * The menu and sub menu is controlled in this class
+	 * As well as launching the game
+	 *
+	 * @author Denzel Pascual
 	 */
-	
+
+	/*
+	 * The final instance "FILE_PATH" locates the txt file "CasinoInfo.txt"
+	 */
 	private final String FILE_PATH = "res/CasinoInfo.txt";
+	Scanner input = new Scanner(System.in);
 	ArrayList<Player> players;
 	AppMenu appMen;
+	String playerName;
 	
-	Guess gs;
 
 	/**
+	 * The method GameManager calls 2 methods, 
+	 * loadData(); and launchApplication();
 	 * 
 	 * @throws Exception
 	 */
@@ -38,8 +43,12 @@ public class GameManager {
 	}
 	
 	/**
-	 * Responsible for running the whole Game
+	 * The method launchApplication is responsible for running the Game.
+	 * Calls showMainMenu from the appMenu Class();
+	 * Displays three choices; 1PlayGame, 2Search, 3Save and Exit
 	 * Loops until the user hits save and exit
+	 * 
+	 * @throws IOException
 	 */
 	private void launchApplication() throws IOException{
 		
@@ -67,30 +76,36 @@ public class GameManager {
 		}
 	}
 	
+	/**
+	 * This method call promptName from appMenu class
+	 * It will display to the user "Enter your name", as well checks if the name exists
+	 * otherwise it will say null and create a new player
+	 */
+	
+	// Note: not completed yet
 	private void playGame() {
 		String name = appMen.promptName();
+		playerName = name;
 		Player p = searchByName(name); // check if the name exist
+		int balance;
 		
 		//if p equals to null that means the player is new player
 		if (p == null) {
-			String id = appMen.promptId();
-			players.add(new Player (name, id, 0));
-			
+			balance = 100;
+			players.add(new Player (name, balance, 0));
+			String welcome = "Welcome " + name + " Your current balance is " + balance;
+			System.out.println(welcome);
+		} else {
+			balance = p.getBalance();
 		}
-		
-		gs = new Guess();
-		boolean win = gs.launchGame();
-		if (win) {
-			for (Player pl : players) {
-				if (pl.getName().equals(name)) {
-					int num = pl.getWins();
-					pl.setWins(num + 1);
-				}
-			}
-		}
-		
 	}
-
+	
+	/**
+	 * This method calls the showSubMenu from the appMenu class
+	 * This method will display the sub menu
+	 * It will prompt the user for three choices, find top player, search player name, and a return to main menu option
+	 * 
+	 */
 	private void search() {
 		char option; 
 		
@@ -99,11 +114,17 @@ public class GameManager {
 		switch (option) {
 		case 't':
 			findTopPlayer();
+			System.out.println("");
+			System.out.println("Press Enter To Continue: ");
+			input.nextLine();
 			break;
 		case 's':
 			String name = appMen.promptName(); // catches the name
 			Player ply = searchByName(name); //calls searchByName method
 			appMen.showPlayer(ply);
+			System.out.println("");
+			System.out.println("Press Enter To Continue: ");
+			input.nextLine();
 			break;
 		case 'b':
 			break;
@@ -112,10 +133,12 @@ public class GameManager {
 	}
 	
 	/*
-	 * if the player exist it will work
-	 * if he/she doesn't exist it will return null
+	 * This method searches for the players name from the getName method in the Player Class
+	 * If the player exist it will function, otherwise it will return null
 	 * null means that player doesn't exist
+	 * 
 	 * @param name
+	 * @return ply
 	 */
 	private Player searchByName(String name) {
         Player ply = null; // if it return null their is no player with that name
@@ -129,12 +152,31 @@ public class GameManager {
 		}
 		return ply;
 	}
-
+	
+	/**
+	 * This method finds the top player with the most wins in the text file "CasinoInfo.txt"
+	 */
 	private void findTopPlayer() {
+		
+		int max = -1;
+
+		for (Player p : players) {
+			if (max < p.getWins())
+				;
+			max = p.getWins();
+		}
+
+		System.out.println(players.get(1));
 		
 		
 	}
 
+	/**
+	 * This method saves the game and update the existing file text
+	 * As well as exits the program
+	 * 
+	 * @throws IOException
+	 */
 	private void save() throws IOException {
 		File db = new File(FILE_PATH);
 		PrintWriter pw = new PrintWriter(db);
@@ -152,7 +194,9 @@ public class GameManager {
 	}
 
 	/**
+	 * This method load the data from "CasinoInfo.txt" and reads the file
 	 * Responsible for checking if the file exist or not
+	 * 
 	 * @throws Exception
 	 */
 	private void loadData() throws Exception {
@@ -177,10 +221,10 @@ public class GameManager {
 				//Player comes from Player class
 				//The constructor of the Player Class takes in the name, id, and number of wins
 				//splittedLine[0] = name, 
-				//splittedLine[1] = ID, 
+				//Integer.parseInt(splittedLine[1] = Balance, 
 				//Integer.parseInt(splittedLine[2] = number of wins
-				//integer parseInt converts  String splittedLine[2] into an integer
-				Player p = new Player(splittedLine[0], splittedLine[1], Integer.parseInt(splittedLine[2]));
+				//integer parseInt converts  String splittedLine[1] and [2] into an integer
+				Player p = new Player(splittedLine[0], Integer.parseInt(splittedLine[1]), Integer.parseInt(splittedLine[2]));
 				players.add(p);
 			}
 			

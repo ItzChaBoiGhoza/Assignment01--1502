@@ -8,13 +8,13 @@ public class Player {
 	 */
 	
 	String name;
-	String id;
+	int balance;
 	int numOfWins;
 	
 	
-	public Player(String name, String id, int numOfWins) {
+	public Player(String name, int balance, int numOfWins) {
 		this.name = name;
-		this.id = id;
+		this.balance = balance;
 		this.numOfWins = numOfWins;
 	}
 	
@@ -22,8 +22,8 @@ public class Player {
 		this.name = name;
 	}
 	
-	public void setId(String id) {
-		this.id = id;
+	public void setBalance(int balance) {
+		this.balance = balance;
 	}
 	
 	public void setWins(int numOfWins) {
@@ -34,8 +34,8 @@ public class Player {
 		return name;
 	}
 	
-	public String getId() {
-		return id;
+	public int getBalance() {
+		return balance;
 	}
 	
 	public int getWins() {
@@ -47,11 +47,11 @@ public class Player {
 	 * in the setter and getters
 	 */
 	public String toString() {
-		return "Name: " + name + " ID: " + id + " Number of Wins: " + numOfWins;
+		return "Name: " + name + " Balance: " + balance + " Number of Wins: " + numOfWins;
 	}
 	
 	// create the format Name; ID; wins
 	public String format() {
-		return name + "," + id + "," + numOfWins;
+		return name + "," + balance + "," + numOfWins;
 	}
 }
