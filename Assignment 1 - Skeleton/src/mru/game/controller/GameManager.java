@@ -161,16 +161,6 @@ public class GameManager {
 	 */
 	private void findTopPlayer() {
 		
-//		int topWins = -1;
-//
-//		for(Player p : players) {
-//			if(topWins < p.getWins());
-//			topWins = p.getWins();
-//			
-//		}
-//		
-//		System.out.println(players.get(topWins));
-		
 		int maxOne = 0;
 		String n1 = "";
 		int maxTwo = 0;

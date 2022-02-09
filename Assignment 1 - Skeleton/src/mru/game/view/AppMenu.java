@@ -56,6 +56,12 @@ public class AppMenu {
 		return name;
 	}
 	
+	/**
+	 * The showPlayer method Executes when the user searches for a player
+	 * The methods outputs the name, balance, and number of wins the players has
+	 * If the player does not exist or is not found, the output will say
+	 * "No record found for that name"
+	 */
 	public void showPlayer(Player ply) {
 		if (ply !=null) {
 			System.out.println(ply);
