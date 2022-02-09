@@ -57,9 +57,10 @@ public class AppMenu {
 	}
 	
 	public void showPlayer(Player ply) {
-		if (ply !=null)
+		if (ply !=null) {
 			System.out.println(ply);
-		else
+		} else {
 			System.out.println("No record found for that name ");
+		}
 	}
 }

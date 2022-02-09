@@ -93,10 +93,13 @@ public class GameManager {
 		if (p == null) {
 			balance = 100;
 			players.add(new Player (name, balance, 0));
-			String welcome = "Welcome " + name + " Your current balance is " + balance;
-			System.out.println(welcome);
+			String newPlayer = "Welcome " + name + " Your current balance is " + balance + " $";
+			System.out.println(newPlayer);
 		} else {
 			balance = p.getBalance();
+			playerName = p.getName();
+			String welcome = "Welcome Back " + name + " Your balance is " + balance + " $";
+			System.out.println(welcome);
 		}
 	}
 	
@@ -158,15 +161,39 @@ public class GameManager {
 	 */
 	private void findTopPlayer() {
 		
-		int max = -1;
-
-		for (Player p : players) {
-			if (max < p.getWins())
-				;
-			max = p.getWins();
+//		int topWins = -1;
+//
+//		for(Player p : players) {
+//			if(topWins < p.getWins());
+//			topWins = p.getWins();
+//			
+//		}
+//		
+//		System.out.println(players.get(topWins));
+		
+		int maxOne = 0;
+		String n1 = "";
+		int maxTwo = 0;
+		String n2 = "";
+		
+		for(Player p : players) {
+			if(maxOne < p.getWins()) {
+				maxTwo = maxOne;
+				maxOne = p.getWins();
+				n1 = p.getName();
+			} else if(maxTwo < p.getWins()) {
+				maxTwo = p.getWins();
+				n2 = p.getName();
+			}
 		}
-
-		System.out.println(players.get(1));
+		
+		if(maxOne > maxTwo) {
+			System.out.println("NAME: " + n1 + ", " + "#WINS: " + maxOne);
+		} else {
+			System.out.println("NAME" + " " + "# WINS" );
+			System.out.println(n1 + " " + maxOne);
+			System.out.println(n2 + " " + maxTwo);
+		}
 		
 		
 	}

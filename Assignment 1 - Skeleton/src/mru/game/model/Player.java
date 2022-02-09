@@ -31,15 +31,15 @@ public class Player {
 	}
 	
 	public String getName() {
-		return name;
+		return this.name;
 	}
 	
 	public int getBalance() {
-		return balance;
+		return this.balance;
 	}
 	
 	public int getWins() {
-		return numOfWins;
+		return this.numOfWins;
 	}
 	
 	/*
