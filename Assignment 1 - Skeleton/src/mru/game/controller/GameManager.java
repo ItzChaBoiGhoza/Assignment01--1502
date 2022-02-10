@@ -8,15 +8,17 @@ import java.util.Scanner;
 
 import mru.game.model.Player;
 import mru.game.view.AppMenu;
+import mru.game.view.GameOptions;
+import mru.game.controller.PuntoBancoGame;
 
-public class GameManager {
+public class GameManager  {
 	
 	/**
 	 * The GameManager class is what runs the program. 
 	 * The menu and sub menu is controlled in this class
 	 * As well as launching the game
 	 *
-	 * @author Denzel Pascual
+	 * @author Denzel Pascual & Ghoza Ghazali
 	 */
 
 	/*
@@ -27,7 +29,7 @@ public class GameManager {
 	ArrayList<Player> players;
 	AppMenu appMen;
 	String playerName;
-	
+	GameOptions go = new GameOptions();;
 
 	/**
 	 * The method GameManager calls 2 methods, 
@@ -47,10 +49,9 @@ public class GameManager {
 	 * Calls showMainMenu from the appMenu Class();
 	 * Displays three choices; 1PlayGame, 2Search, 3Save and Exit
 	 * Loops until the user hits save and exit
-	 * 
-	 * @throws IOException
+	 * @throws Exception 
 	 */
-	private void launchApplication() throws IOException{
+	private void launchApplication() throws Exception{
 		
 		boolean flag = true;
 		int option;
@@ -80,10 +81,11 @@ public class GameManager {
 	 * This method call promptName from appMenu class
 	 * It will display to the user "Enter your name", as well checks if the name exists
 	 * otherwise it will say null and create a new player
+	 * @throws Exception 
 	 */
 	
 	// Note: not completed yet
-	private void playGame() {
+	private void playGame() throws Exception {
 		String name = appMen.promptName();
 		playerName = name;
 		Player p = searchByName(name); // check if the name exist
@@ -93,14 +95,17 @@ public class GameManager {
 		if (p == null) {
 			balance = 100;
 			players.add(new Player (name, balance, 0));
-			String newPlayer = "Welcome " + name + " Your current balance is " + balance + " $";
+			String newPlayer = "Welcome " + name + "! Your current balance is $" + balance;
 			System.out.println(newPlayer);
 		} else {
 			balance = p.getBalance();
 			playerName = p.getName();
-			String welcome = "Welcome Back " + name + " Your balance is " + balance + " $";
-			System.out.println(welcome);
+			String welcomeBack = "Welcome Back " + name + "! Your balance is $" + balance;
+			System.out.println(welcomeBack);
+			go.gameMenu();
 		}
+//		PuntoBancoGame pbg = new PuntoBancoGame(balance);
+//		afterGameSave(pbg.hashCode(), pbg.getWins());
 	}
 	
 	/**
@@ -113,7 +118,7 @@ public class GameManager {
 		char option; 
 		
 		//calls the showSubMenu method
-		option =appMen.showSubMenu();
+		option = appMen.showSubMenu();
 		switch (option) {
 		case 't':
 			findTopPlayer();
@@ -159,8 +164,7 @@ public class GameManager {
 	/**
 	 * This method finds the top player with the most wins in the text file "CasinoInfo.txt"
 	 */
-	private void findTopPlayer() {
-		
+	private void findTopPlayer() {		
 		int maxOne = 0;
 		String n1 = "";
 		int maxTwo = 0;
@@ -184,8 +188,6 @@ public class GameManager {
 			System.out.println(n1 + " " + maxOne);
 			System.out.println(n2 + " " + maxTwo);
 		}
-		
-		
 	}
 
 	/**
@@ -209,6 +211,13 @@ public class GameManager {
 		pw.close();
 		
 	}
+	
+//	public void afterGameSave(int b, int w) throws IOException {
+//		Player p = searchByName(playerName);
+//		p.balanceUpdate(b);
+//		p.winsUpdate(w);
+//		save();
+//	}
 
 	/**
 	 * This method load the data from "CasinoInfo.txt" and reads the file
@@ -248,5 +257,4 @@ public class GameManager {
 			fileReader.close();
 		}
 	}
-
 }
