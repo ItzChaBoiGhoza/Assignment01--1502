@@ -7,6 +7,12 @@ import org.junit.jupiter.api.Test;
 import mru.game.controller.Card;
 
 class SuitsandranksTest {
+	
+	/**
+	 * The test shows that all suits cards can be printed
+	 * As well demonstrates that the number ranking for Ace, Jack, Queen, And King(1, 11, 12, 13)
+	 * Can be printed into a string using the toString method
+	 */
 
 	@Test
 	void test() {

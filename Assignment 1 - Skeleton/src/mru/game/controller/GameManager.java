@@ -104,8 +104,6 @@ public class GameManager  {
 			System.out.println(welcomeBack);
 			go.gameMenu();
 		}
-//		PuntoBancoGame pbg = new PuntoBancoGame(balance);
-//		afterGameSave(pbg.hashCode(), pbg.getWins());
 	}
 	
 	/**
@@ -212,12 +210,6 @@ public class GameManager  {
 		
 	}
 	
-//	public void afterGameSave(int b, int w) throws IOException {
-//		Player p = searchByName(playerName);
-//		p.balanceUpdate(b);
-//		p.winsUpdate(w);
-//		save();
-//	}
 
 	/**
 	 * This method load the data from "CasinoInfo.txt" and reads the file
